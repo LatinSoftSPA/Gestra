@@ -31,6 +31,16 @@ class Movil extends Model
         }
     }
 
+    public static function _buscarPPT($pate_movil)
+    {
+        try {
+            return Movil::where('pate_movil', $pate_movil)->get();
+        } catch (\Exception $e) {
+            \DB::rollback();
+            return response('Error en el Servidor...!!!', 500);
+        }
+    }
+
     public static function _listarFlota($docu_empre, $docu_perso)
     {
         try {
