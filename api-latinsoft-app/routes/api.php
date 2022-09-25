@@ -1,19 +1,7 @@
 <?php
 
-use App\Http\Controllers\Manager\MovilController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-
-
-Route::controller(MovilController::class)->group(function () {
-    Route::get('/moviles', 'index');
-    Route::post('/movil/{nume_movil}/{pate_movil}', 'show');
-    Route::post('/movil', 'store');
-    Route::put('/movil', 'update');
-    Route::delete('/movil', 'destroy');
-});
-
 
 /*
 |--------------------------------------------------------------------------

@@ -21,56 +21,57 @@ class Movil extends Model
         'deleted_at'
     ];
 
-    public static function _buscar($nume_movil)
+
+    public static function _buscar($nume_movil, $pate_movil)
     {
         try {
-            return Movil::where('nume_movil', $nume_movil)->get();
+            return Movil::orWhere('nume_movil', "=", $nume_movil)
+                ->orWhere('pate_movil', "LIKE", "%$pate_movil%")
+                ->get();
         } catch (\Exception $e) {
-            \DB::rollback();
             return response('Error en el Servidor...!!!', 500);
         }
     }
 
-    public static function _buscarPPT($pate_movil)
+    public static function _listar($docu_empre)
     {
         try {
-            return Movil::where('pate_movil', $pate_movil)->get();
+            return Movil::where('docu_empre', $docu_empre)->get();
         } catch (\Exception $e) {
-            \DB::rollback();
             return response('Error en el Servidor...!!!', 500);
         }
     }
 
-    public static function _listarFlota($docu_empre, $docu_perso)
-    {
-        try {
-            return Movil::where('docu_perso', $docu_perso)->get();
-        } catch (\Exception $e) {
-            \DB::rollback();
-            return response('Error en el Servidor...!!!', 500);
-        }
-    }
+    // public static function _listarFlota($docu_empre, $docu_perso)
+    // {
+    //     try {
+    //         return Movil::where('docu_perso', $docu_perso)->get();
+    //     } catch (\Exception $e) {
+    //         \DB::rollback();
+    //         return response('Error en el Servidor...!!!', 500);
+    //     }
+    // }
 
-    public static function _eliminar($pate_movil, $nume_movil)
-    {
-        try {
-            Movil::where('pate_movil', $pate_movil)->where('nume_movil', $nume_movil)->delete();
-        } catch (\Exception $e) {
-            \DB::rollback();
-            return response('Error en el Servidor...!!!', 500);
-        }
-    }
+    // public static function _eliminar($pate_movil, $nume_movil)
+    // {
+    //     try {
+    //         Movil::where('pate_movil', $pate_movil)->where('nume_movil', $nume_movil)->delete();
+    //     } catch (\Exception $e) {
+    //         \DB::rollback();
+    //         return response('Error en el Servidor...!!!', 500);
+    //     }
+    // }
 
-    public static function _actualizar($obj)
-    {
-        try {
-            $movil = new Movil($obj);
-            Movil::where('nume_movil', $obj->nume_movil)
-                ->where('pate_movil', $obj->pate_movil)
-                ->where('docu_empre', $obj->docu_empre)
-                ->update($movil->toArray());
-        } catch (\Exception $e) {
-            return response('No se Encontro Programada...!!!', 500);
-        }
-    }
+    // public static function _actualizar($obj)
+    // {
+    //     try {
+    //         $movil = new Movil($obj);
+    //         Movil::where('nume_movil', $obj->nume_movil)
+    //             ->where('pate_movil', $obj->pate_movil)
+    //             ->where('docu_empre', $obj->docu_empre)
+    //             ->update($movil->toArray());
+    //     } catch (\Exception $e) {
+    //         return response('No se Encontro Programada...!!!', 500);
+    //     }
+    // }
 }
